@@ -1,10 +1,8 @@
 package jp.co.casareal.firestoreobjectandreference.fragment
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.setFragmentResult
@@ -20,13 +18,26 @@ class AddFragment : Fragment() {
     lateinit var binding: FragmentAddBinding
 
     companion object{
-        val REQUEST_KEY = "ADD_REQUEST"
+       const val REQUEST_KEY = "ADD_REQUEST"
     }
+
+    // メニューを一時的に消す
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    // メニューを一時的に消す
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate<FragmentAddBinding>(
             inflater,
@@ -51,9 +62,9 @@ class AddFragment : Fragment() {
                 requireActivity().supportFragmentManager.findFragmentById(R.id.fragmentHost) as NavHostFragment
             val navController = navHost.navController
             val bundle = bundleOf(
-                "name" to model.value.name,
-                "age" to model.value.age,
-                "intro" to model.value.introduction
+                "name" to model.value.name.value,
+                "age" to model.value.age.value,
+                "intro" to model.value.introduction.value
             )
             this.setFragmentResult(REQUEST_KEY, bundle)
             navController.navigateUp()
