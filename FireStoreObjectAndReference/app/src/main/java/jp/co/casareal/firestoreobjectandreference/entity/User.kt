@@ -1,7 +1,6 @@
 package jp.co.casareal.firestoreobjectandreference.entity
 
 import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.IgnoreExtraProperties
 import java.io.Serializable
 
 data class User(
